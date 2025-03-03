@@ -10,7 +10,7 @@ module GitHub.Data.Actions.WorkflowJobs (
 import Prelude ()
 import GitHub.Internal.Prelude
        (Applicative ((<*>)), Data, Eq, FromJSON (parseJSON), Generic, Integer,
-       Ord, Show, Text, UTCTime, Vector, withObject, ($), (.:),
+       Maybe, Ord, Show, Text, UTCTime, Vector, withObject, ($), (.:),
        (<$>))
 
 import GitHub.Data.Id                   (Id)
@@ -27,10 +27,10 @@ import GitHub.Data.Actions.WorkflowRuns (WorkflowRun)
 data JobStep = JobStep
     { jobStepName        :: !(Name JobStep)
     , jobStepStatus      :: !Text
-    , jobStepConclusion  :: !Text
+    , jobStepConclusion  :: !(Maybe Text)
     , jobStepNumber      :: !Integer
-    , jobStepStartedAt   :: !UTCTime
-    , jobStepCompletedAt :: !UTCTime
+    , jobStepStartedAt   :: !(Maybe UTCTime)
+    , jobStepCompletedAt :: !(Maybe UTCTime)
     }
   deriving (Show, Data, Eq, Ord, Generic)
 
@@ -44,17 +44,17 @@ data Job = Job
     , jobUrl             :: !URL
     , jobHtmlUrl         :: !URL
     , jobStatus          :: !Text
-    , jobConclusion      :: !Text
+    , jobConclusion      :: !(Maybe Text)
     , jobStartedAt       :: !UTCTime
-    , jobCompletedAt     :: !UTCTime
+    , jobCompletedAt     :: !(Maybe UTCTime)
     , jobName            :: !(Name Job)
     , jobSteps           :: !(Vector JobStep)
     , jobRunCheckUrl     :: !URL
     , jobLabels          :: !(Vector Text)
-    , jobRunnerId        :: !Integer
-    , jobRunnerName      :: !Text
-    , jobRunnerGroupId   :: !Integer
-    , jobRunnerGroupName :: !Text
+    , jobRunnerId        :: !(Maybe Integer)
+    , jobRunnerName      :: !(Maybe Text)
+    , jobRunnerGroupId   :: !(Maybe Integer)
+    , jobRunnerGroupName :: !(Maybe Text)
     }
   deriving (Show, Data, Eq, Ord, Generic)
 
